@@ -1,8 +1,14 @@
 package com.example.checkbox;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.DialogTitle;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.strictmode.ContentUriWithoutPermissionViolation;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox mCheckBoxVoThuat;
     private CheckBox mCheckBoxDuLich;
     private CheckBox mCheckBoxTheThao;
+
+    private final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,25 @@ public class MainActivity extends AppCompatActivity {
         mButtonXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog);
+                dialog.show();
+
+                Button buttonThoat = (Button) dialog.findViewById(R.id.buttonThoat);
+                buttonThoat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        exitMainActivity();
+                    }
+                });
+
+                Button buttonTiepTuc = (Button) dialog.findViewById(R.id.buttonTiepTuc);
+                buttonTiepTuc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
             }
         });
@@ -94,26 +121,15 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(compoundButton.getContext(), "Đã hủy chọn: " + compoundButton.getText(), Toast.LENGTH_SHORT).show();
     }
 
-//    private void showSoThich(CheckBox checkBoxSoThich) {
-//        int idCheckBox = checkBoxSoThich.getId();
-//        String tenCheckBox = null;
-//        switch (idCheckBox) {
-//            case R.id.checkboxAmNhac:
-//                tenCheckBox = "Âm Nhạc";
-//                break;
-//            case R.id.checkboxDuLich:
-//                tenCheckBox = "Du lịch";
-//                break;
-//            case R.id.checkboxTheThao:
-//                tenCheckBox = "Thể thao";
-//                break;
-//            case R.id.checkboxVoThuat:
-//                tenCheckBox = "Võ thuật";
-//                break;
-//        }
-//        if (checkBoxSoThich.isChecked())
-//            Toast.makeText(this, "Đã chọn Sở thích: " + tenCheckBox, Toast.LENGTH_LONG).show();
-//        else
-//            Toast.makeText(this, "Đã hủy chọn: " + tenCheckBox, Toast.LENGTH_LONG).show();
-//    }
+    private void exitMainActivity(){
+        //Khoi tao lai Activity main
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+
+        // Tao su kien ket thuc app
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startActivity(startMain);
+        finish();
+    }
 }
