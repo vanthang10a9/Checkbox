@@ -24,14 +24,18 @@
 
             <TextView android:text="Họ tên: " />
 
-            <EditText android:hint="Điền tên của bạn" />
+            <EditText
+                android:id="@+id/editTextName"
+                android:hint="Điền tên của bạn" />
         </TableRow>
 
         <TableRow>
 
             <TextView android:text="Ngày sinh: " />
 
-            <EditText android:hint="Nhập ngày sinh của bạn" />
+            <EditText
+                android:id="@+id/editTextNgaySinh"
+                android:hint="Nhập ngày sinh của bạn" />
         </TableRow>
     </TableLayout>
 
@@ -44,20 +48,24 @@
         />
 
     <RadioGroup
+        android:id="@+id/radioGroupNgheNghiep"
         android:layout_row="2"
         android:layout_column="1">
 
         <RadioButton
+            android:id="@+id/radioButtonBacSi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bác sĩ" />
 
         <RadioButton
+            android:id="@+id/radioButtonYTa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Y tá" />
 
         <RadioButton
+            android:id="@+id/radioButtonDieuDuong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Điều dưỡng" />
@@ -75,21 +83,30 @@
 
         <TableRow>
 
-            <CheckBox android:text="Thể thao" />
+            <CheckBox
+                android:id="@+id/checkboxTheThao"
+                android:text="Thể thao" />
 
-            <CheckBox android:text="Du lịch" />
+            <CheckBox
+                android:id="@+id/checkboxDuLich"
+                android:text="Du lịch" />
         </TableRow>
 
         <TableRow>
 
-            <CheckBox android:text="Âm nhạc" />
+            <CheckBox
+                android:id="@+id/checkboxAmNhac"
+                android:text="Âm nhạc" />
 
-            <CheckBox android:text="Võ thuật  " />
+            <CheckBox
+                android:id="@+id/checkboxVoThuat"
+                android:text="Võ thuật  " />
         </TableRow>
 
     </TableLayout>
 
     <Button
+        android:id="@+id/buttonXacNhan"
         android:layout_row="4"
         android:layout_column="0"
         android:layout_columnSpan="2"
@@ -117,21 +134,25 @@
             android:text="Thông tin đã điền" />
 
         <TextView
+            android:id="@+id/textviewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
 
         <TextView
+            android:id="@+id/textviewNgaySinh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
 
         <TextView
+            android:id="@+id/textviewNgheNghiep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
 
         <TextView
+            android:id="@+id/textviewSoThich"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
