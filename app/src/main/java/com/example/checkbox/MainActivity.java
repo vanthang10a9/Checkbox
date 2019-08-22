@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox mCheckBoxVoThuat;
     private CheckBox mCheckBoxDuLich;
     private CheckBox mCheckBoxTheThao;
-    private RadioGroup mGroupNgheNghiep;
+    private RadioGroup mRadioGroupNgheNghiep;
 
     private EditText mEditTextName;
     private EditText mEditTextNgaySinh;
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         mEditTextName = (EditText) findViewById(R.id.editTextName);
         mEditTextNgaySinh = (EditText) findViewById(R.id.editTextNgaySinh);
 
-        mGroupNgheNghiep = (RadioGroup) findViewById(R.id.radioGroupNgheNghiep);
-        mGroupNgheNghiep.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mRadioGroupNgheNghiep = (RadioGroup) findViewById(R.id.radioGroupNgheNghiep);
+        mRadioGroupNgheNghiep.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int idRadioChecked) {
                 showNgheNghiep(idRadioChecked);
@@ -153,9 +153,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean checkNullInformation(){
-        if(mEditTextName == null || mEditTextNgaySinh == null){
+        if(mEditTextName.getText().toString().isEmpty() || mEditTextNgaySinh.getText().toString().isEmpty()){
             return true;
         }
+
         return false;
     }
 
@@ -166,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         textViewNgaySinh.setText("Ngày sinh : " + mEditTextNgaySinh.getText());
 
         TextView textViewNgheNghiep = (TextView) findViewById(R.id.textviewNgheNghiep);
-        int idRadioButtonNgheNghiep = mGroupNgheNghiep.getCheckedRadioButtonId();
+        int idRadioButtonNgheNghiep = mRadioGroupNgheNghiep.getCheckedRadioButtonId();
         RadioButton radioButton = (RadioButton) findViewById(idRadioButtonNgheNghiep);
         textViewNgheNghiep.setText("Nghề nghiệp : " + radioButton.getText());
 
