@@ -13,7 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,15 +24,24 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox mCheckBoxVoThuat;
     private CheckBox mCheckBoxDuLich;
     private CheckBox mCheckBoxTheThao;
+    private RadioGroup mGroupNgheNghiep;
+
+    private EditText mEditTextName;
+    private EditText mEditTextNgaySinh;
 
     private final Context context = this;
+    private Dialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final RadioGroup mGroupNgheNghiep = (RadioGroup) findViewById(R.id.radioGroupNgheNghiep);
+        mEditTextName = (EditText) findViewById(R.id.editTextName);
+        mEditTextNgaySinh = (EditText) findViewById(R.id.editTextNgaySinh);
+
+        mGroupNgheNghiep = (RadioGroup) findViewById(R.id.radioGroupNgheNghiep);
         mGroupNgheNghiep.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int idRadioChecked) {
@@ -48,8 +60,14 @@ public class MainActivity extends AppCompatActivity {
         mButtonXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Dialog dialog = new Dialog(context);
+                dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog);
+                TextView textViewThongBao = (TextView) dialog.findViewById(R.id.textViewThongBao);
+                if(!checkNullInformation()){
+                    textViewThongBao.setText("Đã cập nhật thông tin!");
+                }else {
+                    textViewThongBao.setText("Chưa nhập đầy đủ thông tin!");
+                }
                 dialog.show();
 
                 Button buttonThoat = (Button) dialog.findViewById(R.id.buttonThoat);
@@ -65,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
+                        showThongTin();
                     }
                 });
 
@@ -131,5 +150,42 @@ public class MainActivity extends AppCompatActivity {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startActivity(startMain);
         finish();
+    }
+
+    private boolean checkNullInformation(){
+        if(mEditTextName == null || mEditTextNgaySinh == null){
+            return true;
+        }
+        return false;
+    }
+
+    private void showThongTin(){
+        TextView textViewName = (TextView) findViewById(R.id.textviewName);
+        textViewName.setText("Họ tên : " + mEditTextName.getText());
+        TextView textViewNgaySinh = (TextView) findViewById(R.id.textviewNgaySinh);
+        textViewNgaySinh.setText("Ngày sinh : " + mEditTextNgaySinh.getText());
+
+        TextView textViewNgheNghiep = (TextView) findViewById(R.id.textviewNgheNghiep);
+        int idRadioButtonNgheNghiep = mGroupNgheNghiep.getCheckedRadioButtonId();
+        RadioButton radioButton = (RadioButton) findViewById(idRadioButtonNgheNghiep);
+        textViewNgheNghiep.setText("Nghề nghiệp : " + radioButton.getText());
+
+        String soThich = "Sở thích đã chọn ";
+        if(mCheckBoxAmNhac.isChecked()){
+            soThich += ", Âm nhạc";
+        }
+        if(mCheckBoxDuLich.isChecked()){
+            soThich += ", Du lịch";
+        }
+        if(mCheckBoxTheThao.isChecked()){
+            soThich += ", Thể thao";
+        }
+        if(mCheckBoxVoThuat.isChecked()){
+            soThich += ", Võ thuật";
+        }
+        TextView textViewSoThich = (TextView) findViewById(R.id.textviewSoThich);
+        textViewSoThich.setText(soThich);
+
+
     }
 }
